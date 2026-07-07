@@ -181,10 +181,12 @@ Add tests under a `tests/` directory following standard pytest conventions.
 - **Docstrings:** NumPy-style documentation on all public classes and methods.
 - **Fail fast:** Clear error messages with actionable context.
 
-## License
-
-MIT License. See LICENSE file for details.
 
 ## Author
 
-Python Data Toolkit Team — version 1.0.0
+**Juan Esteban Cabral Bautista**  
+*Python Data Toolkit Team*
+
+---
+
+**Version:** 1.0.0
