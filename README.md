@@ -22,7 +22,7 @@ A production-ready Python library for data cleaning, anomaly detection, report g
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/JCbral04/python-data-toolkit
 cd python-data-toolkit
 pip install -r requirements.txt
 ```
