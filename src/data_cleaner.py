@@ -91,7 +91,10 @@ class DataCleaner:
                 continue
 
             if strategy == "zero":
-                self._df[col] = self._df[col].fillna(0)
+                if pd.api.types.is_numeric_dtype(self._df[col]):
+                    self._df[col] = self._df[col].fillna(0)
+                else:
+                    self._df[col] = self._df[col].fillna("")
             elif strategy == "mean":
                 if not pd.api.types.is_numeric_dtype(self._df[col]):
                     raise DataCleanerError(
