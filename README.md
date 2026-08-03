@@ -18,6 +18,7 @@ A production-ready Python library for data cleaning, anomaly detection, report g
 - numpy >= 1.24
 - openpyxl >= 3.1 (Excel I/O support)
 - pytest >= 7.4 (testing)
+- tabulate >= 0.9.0 (Markdown reports)
 
 ## Installation
 
@@ -54,9 +55,16 @@ text_report = report.generate(format="text")
 report.save("reports/q1_summary.md", format="markdown")
 
 # Analyze SQL
-optimizer = QueryOptimizer("SELECT * FROM users WHERE age > 18")
-analysis = optimizer.analyze()
-print(optimizer.generate_report(format="text"))
+optimizer = QueryOptimizer()
+analysis = optimizer.analyze("SELECT * FROM users WHERE age > 18")
+report = optimizer.generate_report(analysis, format="text")
+print(report)
+
+# Compare two queries
+comparison = optimizer.compare_queries(
+    "SELECT * FROM orders",
+    "SELECT id FROM orders WHERE status = 'completed'"
+)
 ```
 
 ## API Reference
@@ -122,12 +130,12 @@ generator.save("output/report.md", format="markdown")
 Static SQL linting without a database connection.
 
 ```python
-optimizer = QueryOptimizer("SELECT * FROM users")
+optimizer = QueryOptimizer()
 
-analysis = optimizer.analyze()
-report = optimizer.generate_report(format="text")
+analysis = optimizer.analyze("SELECT * FROM users")
+report = optimizer.generate_report(analysis, format="text")
 
-comparison = QueryOptimizer.compare(query_a, query_b)
+comparison = optimizer.compare_queries(query_a, query_b)
 ```
 
 Returns a `QueryAnalysis` dataclass with tables, columns, feature flags, warnings, suggestions, and an estimated complexity rating.
@@ -148,7 +156,10 @@ python-data-toolkit/
 │   ├── report_generator.py
 │   └── query_optimizer.py
 └── tests/
-    └── test_data_cleaner.py
+    ├── test_data_cleaner.py
+    ├── test_anomaly_detector.py
+    ├── test_report_generator.py
+    └── test_query_optimizer.py
 ```
 
 ## Error Handling
@@ -173,9 +184,36 @@ pytest tests/ -v
 | Module | Tests | Status |
 |--------|-------|--------|
 | `DataCleaner` | 14 | :white_check_mark: Complete |
-| `AnomalyDetector` | 0 | :arrows_counterclockwise: Pending |
-| `ReportGenerator` | 0 | :arrows_counterclockwise: Pending |
-| `QueryOptimizer` | 0 | :arrows_counterclockwise: Pending |
+| `AnomalyDetector` | 7 | :white_check_mark: Complete |
+| `ReportGenerator` | 5 | :white_check_mark: Complete |
+| `QueryOptimizer` | 6 | :white_check_mark: Complete |
+| **Total** | **32** | :white_check_mark: **All passing** |
+
+### Tested Scenarios
+
+**DataCleaner:**
+- `handle_missing_values`: mean, median, mode, zero, drop strategies
+- Error handling: invalid strategy, non-numeric mean/median
+- `remove_duplicates`: first, last, none
+- `convert_types`: int64, datetime64
+- `get_missing_summary`: with and without missing values
+
+**AnomalyDetector:**
+- `detect`: IQR, Z-score, both (combined)
+- `get_anomaly_rows`: filtering anomalous rows
+- `get_summary`: statistical summary
+- Error handling: invalid method, no numeric columns
+
+**ReportGenerator:**
+- `generate`: text and markdown formats
+- `save`: file persistence
+- `generate`: custom extra sections
+- Error handling: invalid format
+
+**QueryOptimizer:**
+- `analyze`: basic SELECT, SELECT * detection, empty query
+- `generate_report`: text format
+- Error handling: empty query, non-string input, invalid format
 
 ## Design Principles
 
@@ -183,6 +221,7 @@ pytest tests/ -v
 - **Type hints:** Full annotations for IDE support and static analysis.
 - **Docstrings:** NumPy-style documentation on all public classes and methods.
 - **Fail fast:** Clear error messages with actionable context.
+- **Test-driven:** 32 unit tests covering all modules and edge cases.
 
 ## Author
 
