@@ -1,0 +1,11 @@
+version: 2
+updates:
+  - package-ecosystem: "pip" # Gestor de paquetes de python
+    directory: "/" # Busca en la raiz del proyecto
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      dependencias:
+        patterns:
+          - "*"
