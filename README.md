@@ -1,5 +1,7 @@
 # Python Data Analysis Toolkit
 
+[![Tests](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml)
+
 A production-ready Python library for data cleaning, anomaly detection, report generation, and SQL query analysis. Built on **pandas** and **numpy**, it provides typed, well-documented APIs suitable for pipelines, notebooks, and automated reporting workflows.
 
 ## Features
