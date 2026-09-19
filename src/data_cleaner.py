@@ -241,6 +241,26 @@ class DataCleaner:
             drop=True
         )
 
+    def to_excel(self, path: str, **kwargs) -> None:
+        """Export the current DataFrame to an Excel file.
+
+        Parameters
+        ----------
+        path : str
+            File path for the Excel output.
+        **kwargs
+            Additional arguments passed to pandas.DataFrame.to_excel.
+
+        Raises
+        ------
+        DataCleanerError
+            If the file cannot be written.
+        """
+        try:
+            self._df.to_excel(path, index=False, **kwargs)
+        except Exception as exc:
+            raise DataCleanerError(f"Failed to write Excel file: {exc}") from exc
+
     def _resolve_columns(self, columns: Optional[list[str]]) -> list[str]:
         """Validate and return column list, defaulting to all columns."""
         if columns is None:

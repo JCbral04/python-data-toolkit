@@ -247,3 +247,30 @@ def test_get_missing_summary_no_missing():
     assert len(result) == 2
     assert result["missing_count"].sum() == 0
     assert result["missing_pct"].sum() == 0.0
+
+def test_to_excel():
+    """
+    Test that to_excel writes a valid Excel file.
+    """
+    import tempfile
+    import os
+    
+    # Arrange
+    df = pd.DataFrame({
+        "A": [1, 2, 3],
+        "B": ["x", "y", "z"],
+    })
+    cleaner = DataCleaner(df)
+    
+    # Act
+    with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as tmp:
+        tmp_path = tmp.name
+    
+    cleaner.to_excel(tmp_path)
+    
+    # Assert
+    assert os.path.exists(tmp_path)
+    assert os.path.getsize(tmp_path) > 0
+    
+    # Cleanup
+    os.remove(tmp_path)
