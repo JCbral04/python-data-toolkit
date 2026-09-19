@@ -1,6 +1,6 @@
 # Python Data Analysis Toolkit
 
-[![Tests](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml/badge.svg)](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml)
+[![Tests](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/JCbral04/python-data-toolkit/actions/workflows/tests.yml)
 
 A production-ready Python library for data cleaning, anomaly detection, report generation, and SQL query analysis. Built on **pandas** and **numpy**, it provides typed, well-documented APIs suitable for pipelines, notebooks, and automated reporting workflows.
 
@@ -8,7 +8,7 @@ A production-ready Python library for data cleaning, anomaly detection, report g
 
 | Module | Class | Purpose |
 |--------|-------|---------|
-| `data_cleaner` | `DataCleaner` | Missing-value imputation, duplicate removal, type conversion |
+| `data_cleaner` | `DataCleaner` | Missing-value imputation, duplicate removal, type conversion, Excel export |
 | `anomaly_detector` | `AnomalyDetector` | Outlier detection via IQR and Z-score |
 | `report_generator` | `ReportGenerator` | Plain-text and Markdown data summaries |
 | `query_optimizer` | `QueryOptimizer` | Static SQL analysis and optimization hints |
@@ -30,6 +30,12 @@ cd python-data-toolkit
 pip install -r requirements.txt
 ```
 
+Or install in editable mode:
+
+```bash
+pip install -e .
+```
+
 ## Quick Start
 
 ```python
@@ -44,6 +50,7 @@ cleaner = DataCleaner(df)
 cleaner.handle_missing_values(strategy="median")
 cleaner.remove_duplicates(keep="first")
 cleaner.convert_types({"date": "datetime64[ns]", "amount": "float64"})
+cleaner.to_excel("output/cleaned_data.xlsx")
 cleaned_df = cleaner.data
 
 # Detect anomalies
@@ -86,6 +93,9 @@ cleaner.remove_duplicates(subset=["email"], keep="first")
 
 # Type conversion
 cleaner.convert_types({"price": "float64", "created_at": "datetime64[ns]"})
+
+# Export to Excel
+cleaner.to_excel("output/data.xlsx", sheet_name="Cleaned")
 
 # Diagnostics
 summary = cleaner.get_missing_summary()
@@ -149,6 +159,8 @@ Returns a `QueryAnalysis` dataclass with tables, columns, feature flags, warning
 ```
 python-data-toolkit/
 ├── README.md
+├── LICENSE
+├── pyproject.toml
 ├── requirements.txt
 ├── .gitignore
 ├── src/
@@ -158,6 +170,7 @@ python-data-toolkit/
 │   ├── report_generator.py
 │   └── query_optimizer.py
 └── tests/
+    ├── conftest.py
     ├── test_data_cleaner.py
     ├── test_anomaly_detector.py
     ├── test_report_generator.py
@@ -185,11 +198,11 @@ pytest tests/ -v
 
 | Module | Tests | Status |
 |--------|-------|--------|
-| `DataCleaner` | 14 | :white_check_mark: Complete |
+| `DataCleaner` | 15 | :white_check_mark: Complete |
 | `AnomalyDetector` | 7 | :white_check_mark: Complete |
 | `ReportGenerator` | 5 | :white_check_mark: Complete |
 | `QueryOptimizer` | 6 | :white_check_mark: Complete |
-| **Total** | **32** | :white_check_mark: **All passing** |
+| **Total** | **33** | :white_check_mark: **All passing** |
 
 ### Tested Scenarios
 
@@ -199,6 +212,7 @@ pytest tests/ -v
 - `remove_duplicates`: first, last, none
 - `convert_types`: int64, datetime64
 - `get_missing_summary`: with and without missing values
+- `to_excel`: Excel export with valid file output
 
 **AnomalyDetector:**
 - `detect`: IQR, Z-score, both (combined)
@@ -223,7 +237,8 @@ pytest tests/ -v
 - **Type hints:** Full annotations for IDE support and static analysis.
 - **Docstrings:** NumPy-style documentation on all public classes and methods.
 - **Fail fast:** Clear error messages with actionable context.
-- **Test-driven:** 32 unit tests covering all modules and edge cases.
+- **Test-driven:** 33 unit tests covering all modules and edge cases.
+- **CI/CD:** GitHub Actions runs the full test suite on every push.
 
 ## Author
 
@@ -232,4 +247,5 @@ pytest tests/ -v
 
 ---
 
-**Version:** 1.0.0
+**Version:** 1.0.0  
+**License:** MIT
