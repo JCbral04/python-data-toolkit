@@ -231,6 +231,28 @@ pytest tests/ -v
 - `generate_report`: text format
 - Error handling: empty query, non-string input, invalid format
 
+# Examples
+
+Runnable scripts demonstrating each module of the toolkit.
+
+## Quick Start
+
+```bash
+# All examples assume you're in the project root
+cd python-data-toolkit
+
+# 1. Data cleaning
+python examples/01_data_cleaning.py
+
+# 2. Anomaly detection
+python examples/02_anomaly_detection.py
+
+# 3. Report generation
+python examples/03_report_generation.py
+
+# 4. SQL analysis
+python examples/04_sql_analysis.py
+
 ## Design Principles
 
 - **Immutable outputs:** Public methods return copies; internal state is updated only through explicit method calls.
