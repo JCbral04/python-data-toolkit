@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Literal, Optional, Union
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -50,8 +50,8 @@ class DataCleaner:
     def handle_missing_values(
         self,
         strategy: FillStrategy = "mean",
-        columns: Optional[list[str]] = None,
-        fill_value: Optional[Any] = None,
+        columns: list[str] | None = None,
+        fill_value: Any | None = None,
     ) -> pd.DataFrame:
         """Handle missing values using the specified strategy.
 
@@ -123,7 +123,7 @@ class DataCleaner:
 
     def remove_duplicates(
         self,
-        subset: Optional[list[str]] = None,
+        subset: list[str] | None = None,
         keep: DuplicateStrategy = "first",
     ) -> pd.DataFrame:
         """Remove duplicate rows from the DataFrame.
@@ -154,7 +154,7 @@ class DataCleaner:
         if subset is not None:
             self._resolve_columns(subset)
 
-        keep_arg: Union[bool, Literal["first", "last"]] = False if keep == "none" else keep
+        keep_arg: bool | Literal["first", "last"] = False if keep == "none" else keep
         self._df = self._df.drop_duplicates(subset=subset, keep=keep_arg)
         return self.data
 
@@ -261,7 +261,7 @@ class DataCleaner:
         except Exception as exc:
             raise DataCleanerError(f"Failed to write Excel file: {exc}") from exc
 
-    def _resolve_columns(self, columns: Optional[list[str]]) -> list[str]:
+    def _resolve_columns(self, columns: list[str] | None) -> list[str]:
         """Validate and return column list, defaulting to all columns."""
         if columns is None:
             return list(self._df.columns)

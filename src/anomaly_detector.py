@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Literal, Optional
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -53,7 +53,7 @@ class AnomalyDetector:
         self._df = df.copy()
         self.iqr_multiplier = iqr_multiplier
         self.zscore_threshold = zscore_threshold
-        self._results: Optional[pd.DataFrame] = None
+        self._results: pd.DataFrame | None = None
 
     @property
     def data(self) -> pd.DataFrame:
@@ -61,13 +61,13 @@ class AnomalyDetector:
         return self._df.copy()
 
     @property
-    def results(self) -> Optional[pd.DataFrame]:
+    def results(self) -> pd.DataFrame | None:
         """Return the latest detection results, or None if not yet run."""
         return self._results.copy() if self._results is not None else None
 
     def detect(
         self,
-        columns: Optional[list[str]] = None,
+        columns: list[str] | None = None,
         method: DetectionMethod = "both",
     ) -> pd.DataFrame:
         """Detect anomalies in specified numeric columns.
@@ -125,7 +125,7 @@ class AnomalyDetector:
 
     def get_anomaly_rows(
         self,
-        columns: Optional[list[str]] = None,
+        columns: list[str] | None = None,
         method: DetectionMethod = "both",
     ) -> pd.DataFrame:
         """Return rows flagged as anomalous.
@@ -146,7 +146,7 @@ class AnomalyDetector:
         anomaly_cols = [
             c
             for c in flags.columns
-            if c.endswith("_anomaly") or c.endswith("_iqr_anomaly") or c.endswith("_zscore_anomaly")
+            if c.endswith(("_anomaly", "_iqr_anomaly", "_zscore_anomaly"))
         ]
         if method == "both":
             anomaly_cols = [c for c in flags.columns if c.endswith("_anomaly")]
@@ -225,11 +225,11 @@ class AnomalyDetector:
         return zscores > self.zscore_threshold
 
     def _resolve_numeric_columns(
-        self, columns: Optional[list[str]]
+        self, columns: list[str] | None
     ) -> list[str]:
         """Return validated numeric column names."""
         if columns is None:
-            numeric_cols = self._df.select_dtypes(include=np.number).columns.tolist()
+            numeric_cols: list[str] = self._df.select_dtypes(include=np.number).columns.tolist()
             if not numeric_cols:
                 raise AnomalyDetectorError(
                     "No numeric columns found in DataFrame."

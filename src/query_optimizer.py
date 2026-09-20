@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
-from typing import Optional
 
 
 class QueryOptimizerError(Exception):
@@ -398,5 +397,5 @@ class QueryOptimizer:
             lines.extend(["", "## Suggestions"])
             lines.extend(f"- {s}" for s in analysis.suggestions)
 
-        lines.extend(["", "## Query", "", f"```sql", analysis.query, "```"])
+        lines.extend(["", "## Query", "", "```sql", analysis.query, "```"])
         return "\n".join(lines)

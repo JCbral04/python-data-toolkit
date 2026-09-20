@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Literal, Optional, Union
+from typing import Any, Literal
 
 import numpy as np
 import pandas as pd
@@ -63,7 +63,7 @@ class ReportGenerator:
         include_missing: bool = True,
         include_sample: bool = True,
         sample_rows: int = 5,
-        extra_sections: Optional[dict[str, str]] = None,
+        extra_sections: dict[str, str] | None = None,
     ) -> str:
         """Generate a report in the specified format.
 
@@ -120,7 +120,7 @@ class ReportGenerator:
 
     def save(
         self,
-        path: Union[str, Path],
+        path: str | Path,
         format: OutputFormat = "markdown",
         **kwargs: Any,
     ) -> Path:
