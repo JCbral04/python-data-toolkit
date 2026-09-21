@@ -32,7 +32,7 @@ jobs:
       - name: Run linting
         run: |
           python -m ruff check src/
-          python -m mypy src/
+          python -m mypy src/ --python-version ${{ matrix.python-version }} # Test para evitar que mypy falle en 3.12+ con la sintaxis de NumPy
 
       - name: Run tests
         run: python -m pytest tests/ -v
