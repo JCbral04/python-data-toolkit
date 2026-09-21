@@ -252,6 +252,7 @@ python examples/03_report_generation.py
 
 # 4. SQL analysis
 python examples/04_sql_analysis.py
+```
 
 ## Design Principles
 
