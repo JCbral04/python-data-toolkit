@@ -4,6 +4,8 @@
 
 A production-ready Python library for data cleaning, anomaly detection, report generation, and SQL query analysis. Built on **pandas** and **numpy**, it provides typed, well-documented APIs suitable for pipelines, notebooks, and automated reporting workflows.
 
+> ⚠️ **Limitation:** `QueryOptimizer` performs static heuristic analysis using regex patterns. It does not parse SQL with a full AST engine. Complex queries (nested CTEs, window functions, or dialect-specific syntax) may produce incomplete results. For production-grade SQL parsing, consider [sqlglot](https://github.com/tobymao/sqlglot).
+
 ## Features
 
 | Module | Class | Purpose |

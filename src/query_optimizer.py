@@ -1,6 +1,12 @@
 """SQL query analysis and optimization utilities."""
-
 from __future__ import annotations
+
+import logging as lg
+
+from src._logging import configure_logging
+
+configure_logging()
+_logger = lg.getLogger(__name__)
 
 import re
 from dataclasses import dataclass, field

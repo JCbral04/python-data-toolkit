@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+import logging as lg
+
+from src._logging import configure_logging
+
+configure_logging()
+_logger = lg.getLogger(__name__)
+
 from typing import Any, Literal
 
 import numpy as np
@@ -34,6 +41,11 @@ class DataCleaner:
     """
 
     def __init__(self, df: pd.DataFrame) -> None:
+        _logger.debug(
+            "Initializing DataCleaner with %d rows, %d columns",
+            len(df),
+            len(df.columns),
+        )
         if not isinstance(df, pd.DataFrame):
             raise DataCleanerError(
                 f"Expected pandas DataFrame, got {type(df).__name__}."
@@ -119,6 +131,12 @@ class DataCleaner:
                 else:
                     self._df[col] = self._df[col].fillna(mode_vals.iloc[0])
 
+        _logger.info(
+            "handle_missing_values: strategy=%s, columns=%s, rows=%d",
+            strategy,
+            columns,
+            len(self._df),
+        )
         return self.data
 
     def remove_duplicates(
