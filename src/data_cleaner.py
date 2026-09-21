@@ -261,6 +261,46 @@ class DataCleaner:
         except Exception as exc:
             raise DataCleanerError(f"Failed to write Excel file: {exc}") from exc
 
+    def to_csv(self, path: str, **kwargs) -> None:
+        """Export the current DataFrame to a CSV file.
+
+        Parameters
+        ----------
+        path : str
+            File path for the CSV output.
+        **kwargs
+            Additional arguments passed to pandas.DataFrame.to_csv.
+
+        Raises
+        ------
+        DataCleanerError
+            If the file cannot be written.
+        """
+        try:
+            self._df.to_csv(path, index=False, **kwargs)
+        except Exception as exc:
+            raise DataCleanerError(f"Failed to write CSV file: {exc}") from exc
+
+    def to_parquet(self, path: str, **kwargs) -> None:
+        """Export the current DataFrame to a Parquet file.
+
+        Parameters
+        ----------
+        path : str
+            File path for the Parquet output.
+        **kwargs
+            Additional arguments passed to pandas.DataFrame.to_parquet.
+
+        Raises
+        ------
+        DataCleanerError
+            If the file cannot be written.
+        """
+        try:
+            self._df.to_parquet(path, index=False, **kwargs)
+        except Exception as exc:
+            raise DataCleanerError(f"Failed to write Parquet file: {exc}") from exc
+
     def _resolve_columns(self, columns: list[str] | None) -> list[str]:
         """Validate and return column list, defaulting to all columns."""
         if columns is None:

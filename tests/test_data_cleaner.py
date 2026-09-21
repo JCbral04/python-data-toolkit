@@ -274,3 +274,46 @@ def test_to_excel():
     
     # Cleanup
     os.remove(tmp_path)
+
+def test_to_csv():
+    """Test that to_csv writes a valid CSV file."""
+    import os
+    import tempfile
+
+    df = pd.DataFrame({"A": [1, 2, 3], "B": ["x", "y", "z"]})
+    cleaner = DataCleaner(df)
+
+    with tempfile.NamedTemporaryFile(suffix=".csv", delete=False) as tmp:
+        tmp_path = tmp.name
+
+    cleaner.to_csv(tmp_path)
+
+    assert os.path.exists(tmp_path)
+    assert os.path.getsize(tmp_path) > 0
+
+    read_df = pd.read_csv(tmp_path)
+    assert list(read_df.columns) == ["A", "B"]
+
+    os.remove(tmp_path)
+
+
+def test_to_parquet():
+    """Test that to_parquet writes a valid Parquet file."""
+    import os
+    import tempfile
+
+    df = pd.DataFrame({"A": [1, 2, 3], "B": ["x", "y", "z"]})
+    cleaner = DataCleaner(df)
+
+    with tempfile.NamedTemporaryFile(suffix=".parquet", delete=False) as tmp:
+        tmp_path = tmp.name
+
+    cleaner.to_parquet(tmp_path)
+
+    assert os.path.exists(tmp_path)
+    assert os.path.getsize(tmp_path) > 0
+
+    read_df = pd.read_parquet(tmp_path)
+    assert list(read_df.columns) == ["A", "B"]
+
+    os.remove(tmp_path)
