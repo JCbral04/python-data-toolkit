@@ -34,5 +34,12 @@ jobs:
           python -m ruff check src/
           python -m mypy src/ --python-version ${{ matrix.python-version }} # Test para evitar que mypy falle en 3.12+ con la sintaxis de NumPy
 
-      - name: Run tests
-        run: python -m pytest tests/ -v
+      - name: Run tests with coverage
+        run: python -m pytest tests/ -v --cov=src --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true

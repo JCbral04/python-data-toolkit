@@ -1,7 +1,7 @@
 # Python Data Analysis Toolkit
 
 [![Tests](https://github.com/JCbral04/python-data-toolkit/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/JCbral04/python-data-toolkit/actions/workflows/test.yml)
-[![Coverage](https://img.shields.io/badge/coverage-81%25-brightgreen)](https://github.com/JCbral04/python-data-toolkit)
+[![codecov](https://codecov.io/gh/JCbral04/python-data-toolkit/branch/main/graph/badge.svg)](https://codecov.io/gh/JCbral04/python-data-toolkit)
 
 A production-ready Python library for data cleaning, anomaly detection, report generation, and SQL query analysis. Built on **pandas** and **numpy**, it provides typed, well-documented APIs suitable for pipelines, notebooks, and automated reporting workflows.
 
