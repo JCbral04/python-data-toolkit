@@ -201,12 +201,14 @@ pytest tests/ -v
 
 | Module | Tests | Status |
 |--------|-------|--------|
-| `DataCleaner` | 15 | :white_check_mark: Complete |
-| `AnomalyDetector` | 7 | :white_check_mark: Complete |
-| `ReportGenerator` | 5 | :white_check_mark: Complete |
-| `QueryOptimizer` | 6 | :white_check_mark: Complete |
-| **Total** | **33** | :white_check_mark: **All passing** |
-| **Total** | **35** | **81%** | :white_check_mark: **All passing** |
+| `DataCleaner` | 15 | ✓ Complete |
+| `AnomalyDetector` | 7 | ✓ Complete |
+| `ReportGenerator` | 5 | ✓ Complete |
+| `QueryOptimizer` | 6 | ✓ Complete |
+| **Total** | **33** | ✓ **All passing** |
+
+**Code coverage:** 81% ([measured by Codecov](https://codecov.io/gh/JCbral04/python-data-toolkit))
+
 ### Tested Scenarios
 
 **DataCleaner:**
