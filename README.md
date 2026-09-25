@@ -167,13 +167,14 @@ python-data-toolkit/
 ├── requirements.txt
 ├── .gitignore
 ├── src/
-│   ├── __init__.py
-│   ├── _logging.py
-│   ├── cli.py
-│   ├── data_cleaner.py
-│   ├── anomaly_detector.py
-│   ├── report_generator.py
-│   └── query_optimizer.py
+│   └── pdt/
+│       ├── __init__.py
+│       ├── _logging.py
+│       ├── cli.py
+│       ├── data_cleaner.py
+│       ├── anomaly_detector.py
+│       ├── report_generator.py
+│       └── query_optimizer.py
 ├── examples/
 │   ├── tutorial.ipynb
 │   ├── 01_data_cleaning.py
