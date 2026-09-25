@@ -285,6 +285,7 @@ pdt report data.csv --format markdown --output report.md
 
 # Analyze a SQL query
 pdt analyze "SELECT * FROM users WHERE age > 18"
+```
 
 ## Design Principles
 
@@ -292,7 +293,7 @@ pdt analyze "SELECT * FROM users WHERE age > 18"
 - **Type hints:** Full annotations for IDE support and static analysis.
 - **Docstrings:** NumPy-style documentation on all public classes and methods.
 - **Fail fast:** Clear error messages with actionable context.
-- **Test-driven:** 33 unit tests covering all modules and edge cases.
+- **Test-driven:** 37 unit tests covering all modules and edge cases.
 - **CI/CD:** GitHub Actions runs the full test suite on every push.
 
 ## Author
