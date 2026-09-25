@@ -168,10 +168,18 @@ python-data-toolkit/
 ├── .gitignore
 ├── src/
 │   ├── __init__.py
+│   ├── _logging.py
+│   ├── cli.py
 │   ├── data_cleaner.py
 │   ├── anomaly_detector.py
 │   ├── report_generator.py
 │   └── query_optimizer.py
+├── examples/
+│   ├── tutorial.ipynb
+│   ├── 01_data_cleaning.py
+│   ├── 02_anomaly_detection.py
+│   ├── 03_report_generation.py
+│   └── 04_sql_analysis.py
 └── tests/
     ├── conftest.py
     ├── test_data_cleaner.py
@@ -201,13 +209,13 @@ pytest tests/ -v
 
 | Module | Tests | Status |
 |--------|-------|--------|
-| `DataCleaner` | 15 | ✓ Complete |
+| `DataCleaner` | 19 | ✓ Complete |
 | `AnomalyDetector` | 7 | ✓ Complete |
 | `ReportGenerator` | 5 | ✓ Complete |
 | `QueryOptimizer` | 6 | ✓ Complete |
-| **Total** | **33** | ✓ **All passing** |
+| **Total** | **37** | ✓ **All passing** |
 
-**Code coverage:** 81% ([measured by Codecov](https://codecov.io/gh/JCbral04/python-data-toolkit))
+**Code coverage:** 68% ([measured by Codecov](https://codecov.io/gh/JCbral04/python-data-toolkit))
 
 ### Tested Scenarios
 
@@ -276,7 +284,7 @@ pdt detect data.csv --method both --output anomalies.csv
 pdt report data.csv --format markdown --output report.md
 
 # Analyze a SQL query
-pdt analyze "SELECT * FROM users WHERE age &gt; 18"
+pdt analyze "SELECT * FROM users WHERE age > 18"
 
 ## Design Principles
 
