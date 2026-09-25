@@ -18,7 +18,7 @@ A production-ready Python library for data cleaning, anomaly detection, report g
 
 ## Requirements
 
-- Python 3.9+
+- Python 3.10+
 - pandas >= 2.0
 - numpy >= 1.24
 - openpyxl >= 3.1 (Excel I/O support)
