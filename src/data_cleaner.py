@@ -219,11 +219,7 @@ class DataCleaner:
                     if errors == "coerce" and target_dtype.startswith("int"):
                         self._df[col] = pd.to_numeric(
                             self._df[col], errors="coerce"
-                        ).astype("float64")
-                        if self._df[col].notna().all() and (
-                            self._df[col] % 1 == 0
-                        ).all():
-                            self._df[col] = self._df[col].astype(target_dtype)
+                        ).astype("Int64")
                     else:
                         self._df[col] = self._df[col].astype(target_dtype)
                 else:

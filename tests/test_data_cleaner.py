@@ -317,3 +317,18 @@ def test_to_parquet():
     assert list(read_df.columns) == ["A", "B"]
 
     os.remove(tmp_path)
+
+
+def test_convert_types_int_with_invalid_coerce():
+    df = pd.DataFrame({"A": ["10", "20", "INVALID"]})
+    cleaner = DataCleaner(df)
+    result = cleaner.convert_types({"A": "int64"}, errors="coerce")
+    assert str(result["A"].dtype) == "Int64"
+    assert pd.isna(result.loc[2, "A"])
+
+
+def test_convert_types_int_with_invalid_raise():
+    df = pd.DataFrame({"A": ["10", "20", "INVALID"]})
+    cleaner = DataCleaner(df)
+    with pytest.raises(DataCleanerError):
+        cleaner.convert_types({"A": "int64"}, errors="raise")
