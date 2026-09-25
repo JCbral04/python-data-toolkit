@@ -79,7 +79,7 @@ class ReportGenerator:
             Include descriptive statistics for numeric columns.
         include_missing : bool, default True
             Include missing-value summary.
-        include_sample : bool, default True
+        include_sample : bool, default False
             Include a sample of rows.
         sample_rows : int, default 5
             Number of sample rows to include.

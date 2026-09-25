@@ -146,9 +146,9 @@ class QueryOptimizer:
                 "Specify only required columns in the SELECT clause."
             )
 
-        if not has_where and not has_limit and not has_group_by:
+        if not has_where and not has_limit:
             warnings.append(
-                "Full table scan likely: no WHERE, LIMIT, or GROUP BY clause."
+                "Full table scan likely: no WHERE or LIMIT clause."
             )
             suggestions.append(
                 "Add a WHERE clause to filter rows, or LIMIT for exploratory queries."
