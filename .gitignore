@@ -43,3 +43,8 @@ data/
 
 # Environment variables
 .env
+
+# Coverage
+.coverage
+coverage.xml
+htmlcov/
