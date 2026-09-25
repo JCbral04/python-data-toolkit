@@ -68,7 +68,7 @@ class ReportGenerator:
         format: OutputFormat = "text",
         include_stats: bool = True,
         include_missing: bool = True,
-        include_sample: bool = True,
+        include_sample: bool = False,
         sample_rows: int = 5,
         extra_sections: dict[str, str] | None = None,
     ) -> str:
