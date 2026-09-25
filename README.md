@@ -259,6 +259,25 @@ python examples/03_report_generation.py
 python examples/04_sql_analysis.py
 ```
 
+## CLI
+
+Use the toolkit directly from your terminal after installation:
+
+```bash
+pip install -e .
+
+# Clean a dataset
+pdt clean data.csv --strategy median --output cleaned.csv
+
+# Detect anomalies
+pdt detect data.csv --method both --output anomalies.csv
+
+# Generate a report
+pdt report data.csv --format markdown --output report.md
+
+# Analyze a SQL query
+pdt analyze "SELECT * FROM users WHERE age &gt; 18"
+
 ## Design Principles
 
 - **Immutable outputs:** Public methods return copies; internal state is updated only through explicit method calls.

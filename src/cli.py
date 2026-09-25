@@ -38,7 +38,7 @@ def clean(input_path: str, strategy: str, columns: str | None, output: str | Non
     cleaner = DataCleaner(df)
 
     cols = columns.split(",") if columns else None
-    cleaner.handle_missing_values(strategy=strategy, columns=cols)
+    cleaner.handle_missing_values(strategy=strategy, columns=cols)  # type: ignore[arg-type]
     cleaner.remove_duplicates()
 
     if output:
@@ -66,7 +66,7 @@ def detect(input_path: str, method: str, columns: str | None, output: str | None
     detector = AnomalyDetector(df)
 
     cols = columns.split(",") if columns else None
-    flags = detector.detect(method=method, columns=cols)
+    flags = detector.detect(method=method, columns=cols)  # type: ignore[arg-type]
 
     if output:
         flags.to_csv(output, index=False)
@@ -85,7 +85,7 @@ def report(input_path: str, output_format: str, output: str | None) -> None:
 
     df = pd.read_csv(input_path)
     generator = ReportGenerator(df)
-    report_text = generator.generate(format=output_format)
+    report_text = generator.generate(format=output_format)  # type: ignore[arg-type]
 
     if output:
         Path(output).write_text(report_text, encoding="utf-8")
