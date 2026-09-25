@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.anomaly_detector import AnomalyDetector, AnomalyDetectorError
+from pdt.anomaly_detector import AnomalyDetector, AnomalyDetectorError
 
 
 def test_detect_iqr_basic():

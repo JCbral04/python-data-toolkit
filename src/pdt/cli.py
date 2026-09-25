@@ -8,11 +8,11 @@ from pathlib import Path
 import click
 import pandas as pd
 
-from src._logging import configure_logging
-from src.anomaly_detector import AnomalyDetector
-from src.data_cleaner import DataCleaner
-from src.query_optimizer import QueryOptimizer
-from src.report_generator import ReportGenerator
+from pdt._logging import configure_logging
+from pdt.anomaly_detector import AnomalyDetector
+from pdt.data_cleaner import DataCleaner
+from pdt.query_optimizer import QueryOptimizer
+from pdt.report_generator import ReportGenerator
 
 configure_logging()
 _logger = lg.getLogger(__name__)

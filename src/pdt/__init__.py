@@ -3,10 +3,10 @@
 __version__ = "1.0.0"
 __author__ = "Python Data Toolkit Team"
 
-from src.anomaly_detector import AnomalyDetector
-from src.data_cleaner import DataCleaner
-from src.query_optimizer import QueryOptimizer
-from src.report_generator import ReportGenerator
+from pdt.anomaly_detector import AnomalyDetector
+from pdt.data_cleaner import DataCleaner
+from pdt.query_optimizer import QueryOptimizer
+from pdt.report_generator import ReportGenerator
 
 __all__ = [
     "AnomalyDetector",

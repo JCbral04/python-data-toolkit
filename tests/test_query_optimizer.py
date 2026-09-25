@@ -1,6 +1,6 @@
 import pytest
 
-from src.query_optimizer import QueryOptimizer, QueryOptimizerError, QueryAnalysis
+from pdt.query_optimizer import QueryOptimizer, QueryOptimizerError, QueryAnalysis
 
 
 def test_analyze_basic_select():

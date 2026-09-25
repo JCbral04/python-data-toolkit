@@ -4,7 +4,7 @@ import tempfile
 import pandas as pd
 import pytest
 
-from src.report_generator import ReportGenerator, ReportGeneratorError
+from pdt.report_generator import ReportGenerator, ReportGeneratorError
 
 
 def test_generate_text_basic():

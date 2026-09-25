@@ -43,7 +43,7 @@ pip install -e .
 
 ```python
 import pandas as pd
-from src import DataCleaner, AnomalyDetector, ReportGenerator, QueryOptimizer
+from pdt import DataCleaner, AnomalyDetector, ReportGenerator, QueryOptimizer
 
 # Load data
 df = pd.read_csv("data.csv")

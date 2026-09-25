@@ -5,7 +5,7 @@ Run: python examples/01_data_cleaning.py
 
 import pandas as pd
 import numpy as np
-from src import DataCleaner
+from pdt import DataCleaner
 
 
 def main():

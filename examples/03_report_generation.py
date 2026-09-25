@@ -4,7 +4,7 @@ Run: python examples/03_report_generation.py
 """
 
 import pandas as pd
-from src import ReportGenerator
+from pdt import ReportGenerator
 
 
 def main():

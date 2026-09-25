@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.data_cleaner import DataCleaner, DataCleanerError
+from pdt.data_cleaner import DataCleaner, DataCleanerError
 
 
 def test_handle_missing_values():

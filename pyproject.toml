@@ -45,8 +45,8 @@ Homepage = "https://github.com/JCbral04/python-data-toolkit"
 Repository = "https://github.com/JCbral04/python-data-toolkit"
 
 [tool.setuptools.packages.find]
-where = ["."]
-include = ["src*"]
+where = ["src"]
+include = ["pdt*"]
 
 [tool.mypy]
 python_version = "3.10"
@@ -55,4 +55,4 @@ warn_unused_configs = true
 ignore_missing_imports = true
 
 [project.scripts]
-pdt = "src.cli:cli"
+pdt = "pdt.cli:cli"

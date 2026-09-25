@@ -4,7 +4,7 @@ Run: python examples/02_anomaly_detection.py
 """
 
 import pandas as pd
-from src import AnomalyDetector
+from pdt import AnomalyDetector
 
 
 def main():

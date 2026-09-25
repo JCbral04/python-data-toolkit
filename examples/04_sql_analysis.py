@@ -3,7 +3,7 @@ Example: Static SQL query analysis.
 Run: python examples/04_sql_analysis.py
 """
 
-from src import QueryOptimizer
+from pdt import QueryOptimizer
 
 
 def main():
