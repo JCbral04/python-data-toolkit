@@ -182,7 +182,7 @@ class DataCleaner:
     def convert_types(
         self,
         dtype_map: dict[str, str],
-        errors: Literal["raise", "coerce"] = "coerce",
+        errors: Literal["raise", "coerce"] = "raise",
     ) -> pd.DataFrame:
         """Convert column dtypes according to a mapping.
 
@@ -191,7 +191,7 @@ class DataCleaner:
         dtype_map : dict
             Mapping of column name to target dtype string
             (e.g. ``{"age": "int64", "price": "float64", "date": "datetime64[ns]"}``).
-        errors : {"raise", "coerce"}, default "coerce"
+        errors : {"raise", "coerce"}, default "raise"
             If ``"raise"``, invalid conversions raise ``DataCleanerError``.
             If ``"coerce"``, invalid values become NaN.
 
@@ -204,6 +204,12 @@ class DataCleaner:
         ------
         DataCleanerError
             If columns are missing or conversion fails with errors="raise".
+
+        Notes
+        -----
+        With ``errors="coerce"`` and integer targets, the resulting dtype is
+        pandas nullable ``Int64`` (not NumPy ``int64``) to preserve missing
+        values.
         """
         if not dtype_map:
             raise DataCleanerError("dtype_map must not be empty.")
@@ -219,10 +225,12 @@ class DataCleaner:
                 elif target_dtype == "category":
                     self._df[col] = self._df[col].astype("category")
                 elif target_dtype in ("int64", "int32", "float64", "float32", "bool", "str"):
-                    if errors == "coerce" and target_dtype.startswith("int"):
-                        self._df[col] = pd.to_numeric(
-                            self._df[col], errors="coerce"
-                        ).astype("Int64")
+                    if target_dtype.startswith(("int", "float")):
+                        converted = pd.to_numeric(self._df[col], errors=errors)
+                        if errors == "coerce" and target_dtype.startswith("int"):
+                            self._df[col] = converted.astype("Int64")
+                        else:
+                            self._df[col] = converted.astype(target_dtype)
                     else:
                         self._df[col] = self._df[col].astype(target_dtype)
                 else:
