@@ -62,12 +62,11 @@ def test_handle_missing_values_mode():
 
 def test_handle_missing_values_zero():
     """
-    Test that missing values are filled with zero (numeric) or empty string (text).
+    Test that missing values are filled with zero in numeric columns.
     """
     # Arrange
     df = pd.DataFrame({
         "num": [1.0, np.nan, 3.0],
-        "str": ["a", np.nan, "c"],
     })
     cleaner = DataCleaner(df)
     
@@ -75,8 +74,23 @@ def test_handle_missing_values_zero():
     result = cleaner.handle_missing_values(strategy="zero")
     
     # Assert
-    assert result.loc[1, "num"] == 0.0  # numeric → 0
-    assert result.loc[1, "str"] == ""   # text → empty string
+    assert result["num"].isna().sum() == 0
+    assert result.loc[1, "num"] == 0.0
+
+
+def test_handle_missing_values_zero_non_numeric_raises():
+    """
+    Test that zero strategy raises DataCleanerError on non-numeric columns.
+    """
+    # Arrange
+    df = pd.DataFrame({
+        "str": ["a", np.nan, "c"],
+    })
+    cleaner = DataCleaner(df)
+    
+    # Act & Assert
+    with pytest.raises(DataCleanerError, match="not numeric"):
+        cleaner.handle_missing_values(strategy="zero")
 
 
 def test_handle_missing_values_drop():
@@ -98,6 +112,7 @@ def test_handle_missing_values_drop():
     assert 1 not in result.index     # row with NaN removed
     assert result["A"].isna().sum() == 0  # no missing values left
 
+
 def test_handle_missing_values_invalid_strategy():
     """
     Test that an invalid strategy raises DataCleanerError.
@@ -110,6 +125,7 @@ def test_handle_missing_values_invalid_strategy():
     with pytest.raises(DataCleanerError, match="Invalid strategy"):
         cleaner.handle_missing_values(strategy="invalid")
 
+
 def test_handle_missing_values_non_numeric_mean():
     """
     Test that applying 'mean' to a non-numeric column raises DataCleanerError.
@@ -121,6 +137,7 @@ def test_handle_missing_values_non_numeric_mean():
     # Act & Assert
     with pytest.raises(DataCleanerError, match="not numeric"):
         cleaner.handle_missing_values(strategy="mean")
+
 
 def test_remove_duplicates_first():
     """
@@ -141,6 +158,7 @@ def test_remove_duplicates_first():
     assert result.loc[0, "A"] == 1
     assert result.loc[0, "B"] == "x"
 
+
 def test_remove_duplicates_last():
     """
     Test that remove_duplicates keeps the last occurrence.
@@ -159,6 +177,7 @@ def test_remove_duplicates_last():
     assert len(result) == 2
     assert result.loc[1, "A"] == 1
     assert result.loc[1, "B"] == "x"
+
 
 def test_remove_duplicates_none():
     """
@@ -179,6 +198,7 @@ def test_remove_duplicates_none():
     assert result.loc[2, "A"] == 2
     assert result.loc[2, "B"] == "y"
 
+
 def test_convert_types_int():
     """
     Test that a float column is converted to integer.
@@ -194,6 +214,7 @@ def test_convert_types_int():
     assert pd.api.types.is_integer_dtype(result["A"])
     assert result["A"].iloc[0] == 1
 
+
 def test_convert_types_datetime():
     """
     Test that a string column is converted to datetime.
@@ -207,6 +228,7 @@ def test_convert_types_datetime():
     
     # Assert
     assert pd.api.types.is_datetime64_any_dtype(result["A"])
+
 
 def test_get_missing_summary_with_missing():
     """
@@ -229,6 +251,7 @@ def test_get_missing_summary_with_missing():
     assert result[result["column"] == "B"]["missing_count"].iloc[0] == 0
     assert result[result["column"] == "C"]["missing_count"].iloc[0] == 2
 
+
 def test_get_missing_summary_no_missing():
     """
     Test that get_missing_summary returns all zeros when no missing values.
@@ -247,6 +270,7 @@ def test_get_missing_summary_no_missing():
     assert len(result) == 2
     assert result["missing_count"].sum() == 0
     assert result["missing_pct"].sum() == 0.0
+
 
 def test_to_excel():
     """
@@ -274,6 +298,7 @@ def test_to_excel():
     
     # Cleanup
     os.remove(tmp_path)
+
 
 def test_to_csv():
     """Test that to_csv writes a valid CSV file."""

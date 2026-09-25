@@ -68,6 +68,8 @@ class DataCleaner:
         ----------
         strategy : {"mean", "median", "mode", "zero", "drop"}, default "mean"
             How to impute or remove missing values.
+            "zero" only applies to numeric columns; raises DataCleanerError
+            for non-numeric columns.
         columns : list of str, optional
             Subset of columns to process. Defaults to all columns.
         fill_value : Any, optional
@@ -103,7 +105,11 @@ class DataCleaner:
                 if pd.api.types.is_numeric_dtype(self._df[col]):
                     self._df[col] = self._df[col].fillna(0)
                 else:
-                    self._df[col] = self._df[col].fillna("")
+                    raise DataCleanerError(
+                        f"Column '{col}' is not numeric; 'zero' would silently "
+                        f"replace missing values with empty strings, altering "
+                        f"data semantics. Use 'mode' or pass fill_value."
+                    )
             elif strategy == "mean":
                 if not pd.api.types.is_numeric_dtype(self._df[col]):
                     raise DataCleanerError(
