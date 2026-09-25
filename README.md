@@ -131,7 +131,7 @@ generator = ReportGenerator(df)
 text_report = generator.generate(format="text")
 md_report = generator.generate(
     format="markdown",
-    include_statistics=True,
+    include_stats=True,
     include_missing=True,
     sample_rows=10,
 )
