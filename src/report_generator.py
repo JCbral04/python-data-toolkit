@@ -4,9 +4,6 @@ from __future__ import annotations
 
 import logging as lg
 
-from src._logging import configure_logging
-
-configure_logging()
 _logger = lg.getLogger(__name__)
 
 from datetime import datetime, timezone
