@@ -28,15 +28,15 @@ A production-ready Python library for data cleaning, anomaly detection, report g
 ## Installation
 
 ```bash
-git clone https://github.com/JCbral04/python-data-toolkit
-cd python-data-toolkit
-pip install -r requirements.txt
+pip install python-data-toolkit
 ```
 
-Or install in editable mode:
+Or install from source in editable mode (for development):
 
 ```bash
-pip install -e .
+git clone https://github.com/JCbral04/python-data-toolkit
+cd python-data-toolkit
+pip install -e ".[dev]"
 ```
 
 ## Quick Start
@@ -210,11 +210,11 @@ pytest tests/ -v
 
 | Module | Tests | Status |
 |--------|-------|--------|
-| `DataCleaner` | 19 | ✓ Complete |
+| `DataCleaner` | 20 | ✓ Complete |
 | `AnomalyDetector` | 7 | ✓ Complete |
 | `ReportGenerator` | 5 | ✓ Complete |
 | `QueryOptimizer` | 6 | ✓ Complete |
-| **Total** | **37** | ✓ **All passing** |
+| **Total** | **38** | ✓ **All passing** |
 
 **Code coverage:** 68% ([measured by Codecov](https://codecov.io/gh/JCbral04/python-data-toolkit))
 
@@ -294,7 +294,7 @@ pdt analyze "SELECT * FROM users WHERE age > 18"
 - **Type hints:** Full annotations for IDE support and static analysis.
 - **Docstrings:** NumPy-style documentation on all public classes and methods.
 - **Fail fast:** Clear error messages with actionable context.
-- **Test-driven:** 37 unit tests covering all modules and edge cases.
+- **Test-driven:** 38 unit tests covering all modules and edge cases.
 - **CI/CD:** GitHub Actions runs the full test suite on every push.
 
 ## Author
